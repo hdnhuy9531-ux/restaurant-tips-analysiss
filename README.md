@@ -11,7 +11,7 @@ The analysis explores how factors such as total bill amount, day, time, and cust
 ## Objectives
 This project aims to analyze restaurant tipping behavior using a real-world dataset.
 It explores how variables such as total bill, day, time, and customer characteristics influence tips
-# 📥 Data import
+# Stage 1: Data import
 - Import data:
 - Input:
 ```python
@@ -90,4 +90,68 @@ df.describe()
 | 75% | 182.250000 | 24.127500 | 3.562500 | 3.000000 |
 | max | 243.000000 | 50.810000 | 10.000000 | 6.000000 |
 
+# Stage 2:Hypothesis testing
+## 🚬 Do people who smoke give more tips?
+This analysis compares the measures of central tendency of tip amounts between smokers and non-smokers.
+```python
+#Create a new dataframe smokers_df containing only info about smokers.
+smokers_df = df.query('smoker=="Yes"')
 
+#Create a new dataframe non_smokers_df containing only non-smokers.
+non_smokers_df = df.query('smoker=="No"')
+
+#smokers_df measures of central tendency
+smokers_tip_min = smokers_df['tip'].min()
+smokers_tip_max = smokers_df['tip'].max()
+smokers_tip_mean = smokers_df['tip'].mean()
+smokers_tip_median = smokers_df['tip'].median()
+
+#non_smokers_df measures of central tendency
+non_smokers_tip_min = non_smokers_df['tip'].min()
+non_smokers_tip_max = non_smokers_df['tip'].max()
+non_smokers_tip_mean = non_smokers_df['tip'].mean()
+non_smokers_tip_median = non_smokers_df['tip'].median()
+
+#whole dataset df measures of central tendency
+common_tip_min = df['tip'].min()
+common_tip_max = df['tip'].max()
+common_tip_mean = df['tip'].mean()
+common_tip_median = df['tip'].median()
+
+#Create table to compare
+data_smoker_non_smoker = {
+    "Common": [df["tip"].min(), df["tip"].max(), df["tip"].mean(), df["tip"].median()],
+    "Smokers": [smokers_df["tip"].min(), smokers_df["tip"].max(), smokers_df["tip"].mean(), smokers_df["tip"].median()],
+    "Non-Smokers": [non_smokers_df["tip"].min(), non_smokers_df["tip"].max(), non_smokers_df["tip"].mean(), non_smokers_df["tip"].median()]
+} # Create a dictionary with the statistics
+index_labels = ["Min", "Max", "Mean", "Median"] # Define row labels
+smoking_compare_df = pd.DataFrame(ata_smoker_non_smoker, index=index_labels) # Create the DataFrame
+smoking_compare_df
+```
+- Output
+
+| Statistic | Common | Smokers | Non-smokers |
+|---------|------------|------------|------------|
+| Min | 1.000000 | 1.000000 | 1.000000 |
+| Max | 10.000000 | 10.000000 | 9.000000 |
+| Mean | 2.998279 | 3.008710 | 2.991854 |
+| Median | 2.900000 | 3.000000 | 2.740000 |
+
+### Histogram
+- Input:
+```python
+figure, axis = plt.subplots(1,3,figsize=(20,5))
+#Chart 1: Whole dataset tip values
+axis[0].hist(df['tip'], bins = 10, color='#74b9ff')
+axis[0].set_title('Whole dataset tip values')
+#Chart 2: Smokers tip values
+axis[1].hist(smokers_df['tip'], bins = 10, color='#ff7675')
+axis[1].set_title('Smokers tip values')
+#Chart 3: Non-smokers tip values
+axis[2].hist(non_smokers_df['tip'], bins = 10, color='#55efc4')
+axis[2].set_title('Non-smokers tip values')
+```
+
+- Output:
+
+![Non-smokers tip values](images/non_smokers_tip.png)
