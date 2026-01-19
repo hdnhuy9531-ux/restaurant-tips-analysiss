@@ -1,5 +1,3 @@
-# restaurant-tips-analysiss
-Data analysis of restaurant tipping behavior using Jupyter Notebook
 # Restaurant Tips Analysis
 ## Introduction
 This project focuses on analyzing tipping behavior in a restaurant using a real-world dataset.
@@ -72,7 +70,7 @@ df[columns_to_convert] = df[columns_to_convert].astype(pd.StringDtype())
 | time | string |
 | size | int64 |
 
-###Basic descriptive statistics
+### Basic descriptive statistics
 - Input:
 ```python
 df.describe()
@@ -91,7 +89,7 @@ df.describe()
 | max | 243.000000 | 50.810000 | 10.000000 | 6.000000 |
 
 # Stage 2:Hypothesis testing
-## 🚬 Do people who smoke give more tips?
+### 🚬 Do people who smoke give more tips?
 This analysis compares the measures of central tendency of tip amounts between smokers and non-smokers.
 ```python
 #Create a new dataframe smokers_df containing only info about smokers.
@@ -168,7 +166,7 @@ Histogram analysis shows similar tipping behavior at lower values for both group
 #### 📌Conclusion
 Overall, smokers demonstrate a marginally more generous tipping pattern than non-smokers. Although the difference is subtle, it is consistently observed across summary statistics and visual analysis. These insights highlight how customer segmentation can reveal behavioral nuances that may support more data-informed service and business decisions.
 
-###👨👩 Do males give more tips?
+### 👨👩 Do males give more tips?
 In this section, the same analytical steps as in the previous question are applied. The data is split into male and female subsets, histograms are generated for each group, and the distributions are compared.
 - Input:
 ```python
@@ -378,27 +376,27 @@ plt.show()
 <img width="4490" height="490" alt="image" src="https://github.com/user-attachments/assets/718bfe67-98b0-43c8-82c5-3a21bf611cfe" />
 <img width="846" height="563" alt="image" src="https://github.com/user-attachments/assets/d66f377b-2d5a-427f-8b16-d069cfd76f4d" />
 
-## Insights and Conclusions on Weekend Tipping Behavior
+### Insights and Conclusions on Weekend Tipping Behavior
 
-### Insight 1: Weekdays vs. Weekends
+#### Insight 1: Weekdays vs. Weekends
 Weekend days (Saturday and Sunday) exhibit higher variability and wider tip ranges compared to weekdays. This suggests that tipping behavior may differ on weekends, potentially due to higher customer volume or different dining patterns.
 
-### Insight 2: Mean and Median Comparison
+#### Insight 2: Mean and Median Comparison
 For most days with available data, the mean and median tip values are relatively close, indicating a fairly balanced distribution.  
 Minor differences between the mean and median suggest slight skewness in the data, either toward higher or lower tip values.
 
-### Insight 3: Range and Variability
+#### Insight 3: Range and Variability
 Tip ranges vary notably across days:
 - The widest ranges are observed in the overall dataset and on Saturdays, with tip values spanning from 1.000 to 10.000.
 - Other days show more moderate ranges, reflecting less variability in tipping behavior.
 
-### Histogram Observations
+#### Histogram Observations
 - **Sunday**: Wide distribution of tip values, with the highest frequency around 2–3.
 - **Thursday**: Tips are more concentrated, with the highest frequency around 1–2.
 - **Friday**: The distribution peaks around 2.5–3.
 - **Saturday**: A wide range of values is observed, with the highest frequency around 2.
 
-### General Conclusion
+#### General Conclusion
 The analysis highlights noticeable differences in tipping behavior across days, with weekends showing the greatest variability and widest ranges. Mean and median values are generally close, indicating balanced distributions where data is available.
 
 However, the absence of data for **Monday, Tuesday, and Wednesday** represents a significant limitation. Addressing this gap is necessary to achieve a more complete and reliable comparison across all weekdays. Histograms effectively illustrate these patterns and emphasize the need for more comprehensive weekday data.
