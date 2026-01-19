@@ -25,3 +25,69 @@ df = pd.read_csv("https://raw.githubusercontent.com/RusAbk/sca_datasets/main/tip
 # Display the first few rows of the dataset
 print(df.head())
 ```
+- Output
+
+| id | total_bill | tip  | sex    | smoker | day | time   | size |
+|----|------------|------|--------|--------|-----|--------|------|
+| 0  | 16.99      | 1.01 | Female | No     | Sun | Dinner | 2    |
+| 1  | 10.34      | 1.66 | Male   | No     | Sun | Dinner | 3    |
+| 2  | 21.01      | 3.50 | Male   | No     | Sun | Dinner | 3    |
+| 3  | 23.68      | 3.31 | Male   | No     | Sun | Dinner | 2    |
+| 4  | 24.59      | 3.61 | Female | No     | Sun | Dinner | 4    |
+
+### Show the columns of the dataframe and their types:
+- Input:
+```python
+print(df.dtypes)
+```
+- Output:
+
+| Column Name | Data Type |
+|------------|-----------|
+| id | int64 |
+| total_bill | float64 |
+| tip | float64 |
+| sex | object |
+| smoker | object |
+| day | object |
+| time | object |
+| size | int64 |
+
+The columns sex, smoker, day, and time are categorical variables currently stored as object. We will convert them to string type.
+- Input:
+```python
+columns_to_convert = ['sex', 'smoker', 'day', 'time']
+df[columns_to_convert] = df[columns_to_convert].astype(pd.StringDtype())
+```
+- Output:
+
+| Column Name | Data Type |
+|------------|-----------|
+| id | int64 |
+| total_bill | float64 |
+| tip | float64 |
+| sex | string |
+| smoker | string |
+| day | string |
+| time | string |
+| size | int64 |
+
+###Basic descriptive statistics
+- Input:
+```python
+df.describe()
+```
+- Output:
+
+| Statistic | id | total_bill | tip | size |
+|---------|------------|------------|------------|------------|
+| count | 244.000000 | 244.000000 | 244.000000 | 244.000000 |
+| mean | 121.500000 | 19.785943 | 2.998279 | 2.569672 |
+| std | 70.580923 | 8.902412 | 1.383638 | 0.951100 |
+| min | 0.000000 | 3.070000 | 1.000000 | 1.000000 |
+| 25% | 60.750000 | 13.347500 | 2.000000 | 2.000000 |
+| 50% | 121.500000 | 17.795000 | 2.900000 | 2.000000 |
+| 75% | 182.250000 | 24.127500 | 3.562500 | 3.000000 |
+| max | 243.000000 | 50.810000 | 10.000000 | 6.000000 |
+
+
