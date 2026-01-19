@@ -252,3 +252,153 @@ df_common_males_females_tip
 Males tend to tip slightly more than females, as reflected in both **mean and median tip values**. While the average difference is not large, males appear more frequently in the higher tip range. Visual analysis further supports this finding, showing a greater concentration of larger tips among males.
 
 These insights can help businesses and service providers better understand tipping behavior and customer patterns, potentially informing service strategies and expectations.
+
+### 📆 Do weekends bring more tips?
+## Approach and Data Limitation
+
+In this task, the analysis workflow is repeated with adjustments to better suit the objective. Instead of creating dataframes based on gender, the data is grouped by **weekdays**. Histograms are then generated for each day to allow comparison across weekdays as well as against the overall average.
+
+During the implementation, an issue was identified: the dataset does not contain records for **Monday, Tuesday, and Wednesday**. The absence of these days results in incomplete data and limits the reliability of the comparison.
+
+To proceed with a meaningful analysis, additional data for the missing weekdays is required. This may involve obtaining a more complete dataset or appropriately handling the missing values before continuing with the visualization and comparison.
+
+- Input:
+```python
+#Creating new df for day:
+sun_df = df[df['day'] == 'Sun']
+mon_df = df[df['day'] == 'Mon']
+tue_df = df[df['day'] == 'Tue']
+wed_df = df[df['day'] == 'Wed']
+thu_df = df[df['day'] == 'Thur']
+fri_df = df[df['day'] == 'Fri']
+sat_df = df[df['day'] == 'Sat']
+
+# Calculate measures of central tendency for each day
+def calculate_central_tendency(day_df):
+  return { 'min': day_df['tip'].min(),
+           'max': day_df['tip'].max(),
+           'mean': day_df['tip'].mean(),
+           'median': day_df['tip'].median()
+}
+
+sun_central_tendency = calculate_central_tendency(sun_df)
+mon_central_tendency = calculate_central_tendency(mon_df)
+tue_central_tendency = calculate_central_tendency(tue_df)
+wed_central_tendency = calculate_central_tendency(wed_df)
+thu_central_tendency = calculate_central_tendency(thu_df)
+fri_central_tendency = calculate_central_tendency(fri_df)
+sat_central_tendency = calculate_central_tendency(sat_df)
+
+#Create new data frame
+day_central_tendency = { 'Common': {'min': common_tip_min,
+                                    'max': common_tip_max,
+                                    'mean': common_tip_mean,
+                                    'median': common_tip_median},
+                         'Sun': sun_central_tendency,
+                         'Mon': mon_central_tendency,
+                         'Tue': tue_central_tendency,
+                         'Wed': wed_central_tendency,
+                         'Thu': thu_central_tendency,
+                         'Fri': fri_central_tendency,
+                         'Sat': sat_central_tendency }
+
+df_day_central_tendency = pd.DataFrame(day_central_tendency)
+
+#Print data frame
+print(df_day_central_tendency)
+
+
+# Create chart
+fig, axos = plt.subplots(1, 7, figsize=(45, 5))
+# Chart 1: Sunday tip values
+axos[0].hist(sun_df['tip'], bins=20, color='#74b9ff')
+axos[0].set_xlabel('Tip value')
+axos[0].set_ylabel('Frequency')
+axos[0].set_title('Sunday tip values')
+axos[0].grid(True)
+# Chart 2: Monday tip values
+axos[1].hist(mon_df['tip'], bins=20, color='#ff7675')
+axos[1].set_xlabel('Tip value')
+axos[1].set_ylabel('Frequency')
+axos[1].set_title('Monday tip values')
+axos[1].grid(True)
+# Chart 3: Tuesday tip values
+axos[2].hist(tue_df['tip'], bins=20, color='#55efc4')
+axos[2].set_xlabel('Tip value')
+axos[2].set_ylabel('Frequency')
+axos[2].set_title('Tuesday tip values')
+axos[2].grid(True)
+# Chart 4: Wednesday tip values
+axos[3].hist(wed_df['tip'], bins=20, color='#ffeaa7')
+axos[3].set_xlabel('Tip value')
+axos[3].set_ylabel('Frequency')
+axos[3].set_title('Wednesday tip values')
+axos[3].grid(True)
+# Chart 5: Thursday tip values
+axos[4].hist(thu_df['tip'], bins=20, color='#a29bfe')
+axos[4].set_xlabel('Tip value')
+axos[4].set_ylabel('Frequency')
+axos[4].set_title('Thursday tip values')
+axos[4].grid(True)
+# Chart 6: Friday tip values
+axos[5].hist(fri_df['tip'], bins=20, color='#fab1a0')
+axos[5].set_xlabel('Tip value')
+axos[5].set_ylabel('Frequency')
+axos[5].set_title('Friday tip values')
+axos[5].grid(True)
+# Chart 7: Saturday tip values
+axos[6].hist(sat_df['tip'], bins=20, color='#fd79a8')
+axos[6].set_xlabel('Tip value')
+axos[6].set_ylabel('Frequency')
+axos[6].set_title('Saturday tip values')
+axos[6].grid(True)
+plt.tight_layout()
+plt.show()
+
+# Extract the mean values for each day
+mean_values = df_day_central_tendency.loc['mean', ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']]
+# Create a column chart
+plt.figure(figsize=(10, 6))
+mean_values.plot(kind='bar', color='#74b9ff')
+plt.xlabel('Day of the Week')
+plt.ylabel('Average Tip Value')
+plt.title('Average (Mean) Tip Values by Day of the Week')
+plt.grid(axis='y')
+plt.show()
+```
+- Output:
+
+| Statistic | Common   | Sun     | Mon | Tue | Wed | Thu     | Fri     | Sat      |
+|-----------|----------|---------|-----|-----|-----|---------|---------|----------|
+| Min       | 1.000000 | 1.010000| NaN | NaN | NaN | 1.250000| 1.000000| 1.000000 |
+| Max       |10.000000 | 6.500000| NaN | NaN | NaN | 6.700000| 4.730000|10.000000 |
+| Mean      | 2.998279 | 3.255132| NaN | NaN | NaN | 2.771452| 2.734737| 2.993103 |
+| Median    | 2.900000 | 3.150000| NaN | NaN | NaN | 2.305000| 3.000000| 2.750000 |
+
+<img width="4490" height="490" alt="image" src="https://github.com/user-attachments/assets/718bfe67-98b0-43c8-82c5-3a21bf611cfe" />
+<img width="846" height="563" alt="image" src="https://github.com/user-attachments/assets/d66f377b-2d5a-427f-8b16-d069cfd76f4d" />
+
+## Insights and Conclusions on Weekend Tipping Behavior
+
+### Insight 1: Weekdays vs. Weekends
+Weekend days (Saturday and Sunday) exhibit higher variability and wider tip ranges compared to weekdays. This suggests that tipping behavior may differ on weekends, potentially due to higher customer volume or different dining patterns.
+
+### Insight 2: Mean and Median Comparison
+For most days with available data, the mean and median tip values are relatively close, indicating a fairly balanced distribution.  
+Minor differences between the mean and median suggest slight skewness in the data, either toward higher or lower tip values.
+
+### Insight 3: Range and Variability
+Tip ranges vary notably across days:
+- The widest ranges are observed in the overall dataset and on Saturdays, with tip values spanning from 1.000 to 10.000.
+- Other days show more moderate ranges, reflecting less variability in tipping behavior.
+
+### Histogram Observations
+- **Sunday**: Wide distribution of tip values, with the highest frequency around 2–3.
+- **Thursday**: Tips are more concentrated, with the highest frequency around 1–2.
+- **Friday**: The distribution peaks around 2.5–3.
+- **Saturday**: A wide range of values is observed, with the highest frequency around 2.
+
+### General Conclusion
+The analysis highlights noticeable differences in tipping behavior across days, with weekends showing the greatest variability and widest ranges. Mean and median values are generally close, indicating balanced distributions where data is available.
+
+However, the absence of data for **Monday, Tuesday, and Wednesday** represents a significant limitation. Addressing this gap is necessary to achieve a more complete and reliable comparison across all weekdays. Histograms effectively illustrate these patterns and emphasize the need for more comprehensive weekday data.
