@@ -154,4 +154,5 @@ axis[2].set_title('Non-smokers tip values')
 
 - Output:
 
-![Non-smokers tip values](images/non_smokers_tip.png)
+<img width="1597" height="451" alt="image" src="https://github.com/user-attachments/assets/4985cf50-0032-4622-a983-3ae1d45eabe0" />
+
