@@ -156,3 +156,99 @@ axis[2].set_title('Non-smokers tip values')
 
 <img width="1597" height="451" alt="image" src="https://github.com/user-attachments/assets/4985cf50-0032-4622-a983-3ae1d45eabe0" />
 
+### Insights and Conclusions on Tipping Behavior: Smokers vs. Non-Smokers
+#### 🔍 Key Insights: Tipping Behavior by Smoking Status
+- Smokers tend to tip slightly more than non-smokers.
+Both the mean and median tip values are higher among smokers (mean ≈ 3.01, median 3.00) compared to non-smokers (mean ≈ 2.99, median 2.74), indicating a consistent but modest difference in tipping behavior.
+- Higher tip variability is driven by smokers.
+While minimum tip values are identical across groups, smokers reach higher maximum tip amounts, contributing more frequently to the upper end of the tip distribution. Non-smokers exhibit a slightly narrower range of tip values.
+- Distribution patterns support numerical findings.
+Histogram analysis shows similar tipping behavior at lower values for both groups, suggesting a common baseline. However, smokers display a higher concentration of larger tips, reinforcing the central tendency results.
+
+#### 📌Conclusion
+Overall, smokers demonstrate a marginally more generous tipping pattern than non-smokers. Although the difference is subtle, it is consistently observed across summary statistics and visual analysis. These insights highlight how customer segmentation can reveal behavioral nuances that may support more data-informed service and business decisions.
+
+###👨👩 Do males give more tips?
+In this section, the same analytical steps as in the previous question are applied. The data is split into male and female subsets, histograms are generated for each group, and the distributions are compared.
+- Input:
+```python
+# Create new df for sex:
+males_df = df.query('sex=="Male"')
+females_df = df.query('sex=="Female"')
+#Calculate central tendency:
+males_tip_min = males_df['tip'].min()
+males_tip_max = males_df['tip'].max()
+males_tip_mean = males_df['tip'].mean()
+males_tip_median = males_df['tip'].median()
+
+females_tip_min = females_df['tip'].min()
+females_tip_max = females_df['tip'].max()
+females_tip_mean = females_df['tip'].mean()
+females_tip_median = females_df['tip'].median()
+
+#Create new data from for central tendency:
+common_males_females_tip = {
+    'Common': [common_tip_min, common_tip_max, common_tip_mean, common_tip_median],
+    'Males': [males_tip_min, males_tip_max, males_tip_mean, males_tip_median],
+    'Females': [females_tip_min, females_tip_max, females_tip_mean, females_tip_median]
+}
+
+index_labels = ["Min", "Max", "Mean", "Median"]
+df_common_males_females_tip = pd.DataFrame(common_males_females_tip, index=index_labels)
+#Create chart:
+figure, axis = plt.subplots(1, 3, figsize=(45, 5))
+# Chart 1: Whole dataset tip values
+axis[0].hist(df['tip'], bins = 10, color='#74b9ff')
+axis[0].set_xlabel('Tip value')
+axis[0].set_ylabel('Frequency')
+axis[0].set_title('Whole dataset tip values')
+axis[0].grid(True)
+# Chart 2: Males tip values
+axis[1].hist(males_df['tip'], bins = 10, color='#ff7675')
+axis[1].set_xlabel('Tip value')
+axis[1].set_ylabel('Frequency')
+axis[1].set_title('Males tip values')
+axis[1].grid(True)
+# Chart 3: Females tip values
+axis[2].hist(females_df['tip'],  bins = 10,color='#55efc4')
+axis[2].set_xlabel('Tip value')
+axis[2].set_ylabel('Frequency')
+axis[2].set_title('Females tip values')
+axis[2].grid(True)
+
+plt.show()
+
+#Print data frame
+df_common_males_females_tip
+```
+- Output:
+
+| Statistic | Common | Males | Females |
+|-----------|--------|-------|---------|
+| Min       | 1.000  | 1.000 | 1.000   |
+| Max       | 10.000 | 10.000| 6.500   |
+| Mean      | 2.998  | 3.090 | 2.833   |
+| Median    | 2.900  | 3.000 | 2.750   |
+
+<img width="4490" height="490" alt="image" src="https://github.com/user-attachments/assets/5d0a9101-0338-407e-bd51-7dc59514633c" />
+
+### Insights and Conclusions on Tipping Behavior (Males vs. Females)
+
+#### Insight 1: Males Tend to Tip Slightly More Than Females
+- The **mean tip value** for males (3.090) is slightly higher than that for females (2.833).
+- The **median tip value** for males (3.00) also exceeds that of females (2.75).
+- Overall, this suggests that males tend to tip slightly more than females on average.
+
+#### Insight 2: Tip Distribution Range
+- The **tip range** (difference between maximum and minimum values) is the same for the overall dataset and for males, with a maximum tip of 10.000.
+- For females, the maximum tip is lower (6.500), indicating a **narrower distribution of tip values**.
+- Higher tip values are primarily contributed by male customers.
+
+#### Histogram Observations
+- The histogram for males shows a **higher frequency of larger tip values** compared to females.
+- Both male and female distributions display a similar pattern at the lower end, suggesting a consistent minimum tipping behavior across genders.
+
+#### General Conclusion
+Males tend to tip slightly more than females, as reflected in both **mean and median tip values**. While the average difference is not large, males appear more frequently in the higher tip range. Visual analysis further supports this finding, showing a greater concentration of larger tips among males.
+
+These insights can help businesses and service providers better understand tipping behavior and customer patterns, potentially informing service strategies and expectations.
