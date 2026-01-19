@@ -12,5 +12,16 @@ The analysis explores how factors such as total bill amount, day, time, and cust
 This project aims to analyze restaurant tipping behavior using a real-world dataset.
 It explores how variables such as total bill, day, time, and customer characteristics influence tips
 # 📥 Data import
-Import data:
-Input:
+- Import data:
+- Input:
+```python
+#Import the libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Import the dataset into dataframe (df)
+df = pd.read_csv("https://raw.githubusercontent.com/RusAbk/sca_datasets/main/tips.csv")
+
+# Display the first few rows of the dataset
+print(df.head())
+```
